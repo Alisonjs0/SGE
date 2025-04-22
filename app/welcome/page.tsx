@@ -1,61 +1,95 @@
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { MaterialIcons, FontAwesome5, Entypo } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image } from 'react-native';
-import { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
+
 
 export default function SomeComponent() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   return (
     <View style={styles.container}>
-        <Text>Dificuldade com a manutenção do seu sistema?</Text>
-        <Text>Apagamos seu problema!</Text>
-    </View>
+      <Text style={styles.title}>Dificuldade com a manutenção do seu sistema?</Text>
+      <Text style={styles.subTitle}>Apagamos seu problema!</Text>
+
+      <View style={styles.item}>
+        <MaterialIcons name="location-pin" size={24} color="#D32B2D" style={styles.icon} />
+        <View>
+          <Text style={styles.itemTitle}>Localize Extintores</Text>
+          <Text style={styles.itemText}>Descubra em tempo real, onde estão localizados e a situação de cada um.</Text>
+        </View>
+      </View>
+
+      <View style={styles.item}>
+        <FontAwesome5 name="barcode" size={20} color="#D32B2D" style={styles.icon} />
+        <View>
+          <Text style={styles.itemTitle}>Gerencie Informações</Text>
+          <Text style={styles.itemText}>Escaneie o código de barras, e verifique todas as informações</Text>
+        </View>
+      </View>
+
+      <View style={styles.item}>
+        <Entypo name="shield" size={22} color="#D32B2D" style={styles.icon} />
+        <View>
+          <Text style={styles.itemTitle}>Aumente a Segurança Preventiva</Text>
+          <Text style={styles.itemText}>Garanta descontos exclusivos na nossa plataforma e economize em cada compra</Text>
+        </View>
+      </View>
+
+      <View style={styles.item}>
+        <MaterialIcons name="assessment" size={24} color="#D32B2D" style={styles.icon} />
+        <View>
+          <Text style={styles.itemTitle}>Verifique índice</Text>
+          <Text style={styles.itemText}>Últimas ocorrências, validade e outros recursos.</Text>
+        </View>
+      </View>
+
+      {/* Testando com Pressable em vez de Link */}
+      <Link href="/dashboard/page" asChild>
+             <TouchableOpacity style={styles.button}>
+               <Text style={styles.buttonText}>Explorar recursos</Text>
+             </TouchableOpacity>
+           </Link>
+         </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 100, // Afastando mais do topo
+    backgroundColor: '#fff',
+    paddingTop: 60,
+    paddingHorizontal: 25,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
-    position: 'absolute',
-    top: 325, 
-    left: 20,
-    
-  },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 15, // Menor espaçamento entre os campos de email e senha
-    position: 'relative',
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    textAlign: 'left',
     marginBottom: 5,
   },
-  input: {
-    width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    backgroundColor: '#fff',
-  },
-  forgotPassword: {
-    position: 'absolute',
-    bottom: -20, // Distância para o canto inferior esquerdo
-    left: 0,
+  subTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
     color: '#D32B2D',
+    marginBottom: 20,
+    textAlign: 'left',
+  },
+  item: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    alignItems: 'flex-start',
+  },
+  icon: {
+    marginRight: 12,
+    marginTop: 5,
+  },
+  itemTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginBottom: 2,
+  },
+  itemText: {
     fontSize: 14,
+    color: '#555',
+    maxWidth: '90%',
   },
   button: {
     backgroundColor: '#D32B2D',
@@ -64,15 +98,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     width: 370,
-    marginTop: 30, // Afastando o botão para dar mais espaço entre os elementos
+    marginTop: 30, // Garante que o botão tenha espaço suficiente
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
     fontWeight: 'bold',
+    fontSize: 16,
+    flexShrink: 1, // Ajuste para garantir que o texto se ajuste corretamente
   },
-  logo: {
-    marginBottom: 50,
-  }
-
 });
