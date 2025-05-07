@@ -2,8 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialIcons, Feather } from '@expo/vector-icons';
+import Navbar from '@/components/navbar';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Dashboard() {
+  const navigation = useNavigation();
+
+  const handleNavigate = (screen: string) => {
+    navigation.navigate(screen as never); // typecast para evitar erro de tipo
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -11,7 +19,7 @@ export default function Dashboard() {
         <View style={styles.helloContainer}>
           <View style={styles.helloRow}>
             <Text style={styles.helloText}>Olá, Arthur</Text>
-            <MaterialIcons name="local-fire-department" size={20} color="#fff" style={styles.fireIcon} />
+            <MaterialIcons name="local-fire-department" size={20} color="#fff" />
           </View>
           <Text style={styles.welcomeText}>Bem vindo de volta!</Text>
         </View>
@@ -19,13 +27,11 @@ export default function Dashboard() {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Verificar Setores */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Verificar Setores</Text>
           <Ionicons name="chevron-forward" size={22} color="#333" />
         </View>
 
-        {/* Card: Total de Extintores */}
         <View style={styles.card}>
           <Image
             source={require('@/assets/images/extintor.png')}
@@ -46,14 +52,12 @@ export default function Dashboard() {
           </View>
         </View>
 
-        {/* Dot indicator */}
         <View style={styles.dots}>
           <View style={styles.dotActive} />
           <View style={styles.dot} />
           <View style={styles.dot} />
         </View>
 
-        {/* Card com imagem */}
         <View style={styles.imageCard}>
           <Image
             source={require('@/assets/images/Extintores.png')}
@@ -70,18 +74,8 @@ export default function Dashboard() {
         </View>
       </ScrollView>
 
-      {/* Bottom Tab */}
-      <View style={styles.bottomTab}>
-        <TouchableOpacity>
-          <Ionicons name="home-outline" size={24} color="#D32B2D" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons name="scan-outline" size={24} color="#333" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons name="person-outline" size={24} color="#333" />
-        </TouchableOpacity>
-      </View>
+      {/* Reutilizando Navbar */}
+      <Navbar onNavigate={handleNavigate} />
     </SafeAreaView>
   );
 }
@@ -104,7 +98,6 @@ const styles = StyleSheet.create({
   },
   helloText: { color: '#fff', fontSize: 16 },
   welcomeText: { color: '#fff', fontWeight: 'bold', fontSize: 18 },
-  fireIcon: {},
 
   scrollContent: { padding: 20 },
   sectionHeader: {
@@ -197,14 +190,5 @@ const styles = StyleSheet.create({
   contactText: {
     color: '#fff',
     fontWeight: 'bold',
-  },
-
-  bottomTab: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    borderTopColor: '#ddd',
-    borderTopWidth: 1,
-    backgroundColor: '#fff',
   },
 });
